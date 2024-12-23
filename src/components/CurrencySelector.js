@@ -6,7 +6,7 @@ import './CurrencySelector.css';
 
 const CurrencySelector = ({ defaultCurrency = 'HKD', onCurrencyChange, onAmountChange, onBlur }) => {
     const dispatch = useDispatch();
-    const { exchangeRates, loading, error } = useSelector((state) => state);
+    const { exchangeRates = [], loading, error } = useSelector((state) => state);
 
     const [amount, setAmount] = useState('');
     const [selectedCurrency, setSelectedCurrency] = useState(defaultCurrency);
@@ -25,6 +25,12 @@ const CurrencySelector = ({ defaultCurrency = 'HKD', onCurrencyChange, onAmountC
         setAmount(newAmount);
         if (onAmountChange) {
             onAmountChange(newAmount);
+        }
+    };
+
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            handleBlur(); // Trigger blur logic on Enter key press
         }
     };
 
@@ -66,13 +72,14 @@ const CurrencySelector = ({ defaultCurrency = 'HKD', onCurrencyChange, onAmountC
 
     return (
         <div className="currency-selector-container">
-            {loading && <p>Loading exchange rates...</p>}
-            {error && <p>Error: {error}</p>}
+            {loading && <p className="loading-message">Loading exchange rates...</p>}
+            {error && <p className="error-message">Error: {error}</p>}
             <input
                 type="text"
                 inputMode="decimal"
                 value={amount}
                 onChange={handleAmountChange}
+                onKeyPress={handleKeyPress} // Add key press handler
                 onBlur={handleBlur}
                 placeholder={`Enter amount in ${selectedCurrency}`}
                 className="currency-input"

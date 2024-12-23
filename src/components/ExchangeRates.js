@@ -37,14 +37,16 @@ const ExchangeRates = ({ sellCurrency, buyCurrency, exchangeRates }) => {
 
     return (
         <div className={`exchange-rates ${flash ? 'flash' : ''}`}>
-            <h4>Exchange Rate</h4>
-            {finalRate !== null ? (
-                <p>
-                    <Flag code={sellFlag} className="flag" /> 1 {sellCurrency} = {finalRate.toFixed(4)} {buyCurrency} <Flag code={buyFlag} className="flag" />
-                </p>
-            ) : (
-                <p>Exchange rate not available</p>
-            )}
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+                <h4 style={{ margin: '0 10px 0 0' }}>Exchange Rate:</h4>
+                {finalRate !== null ? (
+                    <p style={{ margin: 0, display: 'flex', alignItems: 'center' }}>
+                        <Flag code={sellFlag} className="flag" /> 1 {sellCurrency} = {finalRate.toFixed(4)} {buyCurrency} <Flag code={buyFlag} className="flag" />
+                    </p>
+                ) : (
+                    <p style={{ margin: 0 }}>Exchange rate not available</p>
+                )}
+            </div>
         </div>
     );
 };

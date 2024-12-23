@@ -15,26 +15,33 @@
 .exchange-rates {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: 10px 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
     margin: 10px 0;
     background-color: #f9f9f9;
     width: 100%;
-    animation: flash 1s ease-in-out;
+    gap: 10px;
 }
 
 .flash {
     animation: flash 1s ease-in-out;
 }
 
-.exchange-rates h4,
+.exchange-rates h4 {
+    margin: 0;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+}
+
 .exchange-rates p {
     margin: 0;
     font-size: 1.2em;
-    display: inline-flex;
+    display: flex;
     align-items: center;
+    line-height: normal;
 }
 
 .flag {

@@ -15,6 +15,12 @@ function App() {
   const [isEditingSell, setIsEditingSell] = useState(false);
   const [isEditingBuy, setIsEditingBuy] = useState(false);
 
+  console.log('sellCurrency:', sellCurrency);
+  console.log('buyCurrency:', buyCurrency);
+  console.log('exchangeRates:', exchangeRates);
+  console.log('sellAmount:', sellAmount);
+  console.log('buyAmount:', buyAmount);
+
   const handleSellAmountChange = (amount) => {
     setSellAmount(amount);
     setIsEditingSell(true);
@@ -45,17 +51,13 @@ function App() {
             onAmountChange={handleSellAmountChange}
             onBlur={handleSellBlur}
           />
-          {isEditingSell ? (
-            <p>...</p>
-          ) : (
-            sellAmount && (
-              <CurrencyConverter
-                amount={sellAmount}
-                type="sell"
-                fromCurrency={sellCurrency}
-                toCurrency={buyCurrency}
-              />
-            )
+          {!isEditingSell && sellAmount && (
+            <CurrencyConverter
+              amount={sellAmount}
+              type="sell"
+              fromCurrency={sellCurrency}
+              toCurrency={buyCurrency}
+            />
           )}
         </div>
 
@@ -67,17 +69,13 @@ function App() {
             onAmountChange={handleBuyAmountChange}
             onBlur={handleBuyBlur}
           />
-          {isEditingBuy ? (
-            <p>...</p>
-          ) : (
-            buyAmount && (
-              <CurrencyConverter
-                amount={buyAmount}
-                type="buy"
-                fromCurrency={buyCurrency}
-                toCurrency={sellCurrency}
-              />
-            )
+          {!isEditingBuy && buyAmount && (
+            <CurrencyConverter
+              amount={buyAmount}
+              type="buy"
+              fromCurrency={buyCurrency}
+              toCurrency={sellCurrency}
+            />
           )}
         </div>
       </div>

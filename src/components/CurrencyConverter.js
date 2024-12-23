@@ -4,21 +4,16 @@ import Flag from 'react-world-flags';
 import './CurrencyConverter.css';
 
 const CurrencyConverter = ({ amount, type, fromCurrency, toCurrency }) => {
-    const { exchangeRates } = useSelector((state) => state);
+    const { exchangeRates = [] } = useSelector((state) => state);
 
     const fromRate = exchangeRates.find((rate) => rate.code === fromCurrency);
     const toRate = exchangeRates.find((rate) => rate.code === toCurrency);
-
-    console.log('fromRate:', fromRate);
-    console.log('toRate:', toRate);
-    console.log('amount (before parsing):', amount);
 
     if (!fromRate || !toRate) {
         return <p>Invalid currency selection</p>;
     }
 
     let convertedAmount = parseFloat(amount);
-    console.log('convertedAmount (after parsing):', convertedAmount);
 
     if (isNaN(convertedAmount)) {
         console.error('Invalid amount:', amount);
@@ -44,7 +39,7 @@ const CurrencyConverter = ({ amount, type, fromCurrency, toCurrency }) => {
     return (
         <div className="currency-converter">
             <p>
-                {fromSymbol} {amount} <Flag code={fromFlag} className="flag" /> = {toSymbol} {convertedAmount.toFixed(2)} <Flag code={toFlag} className="flag" />
+                {fromSymbol} {parseFloat(amount).toLocaleString()} <Flag code={fromFlag} className="flag" /> = {toSymbol} {Number(convertedAmount.toFixed(2)).toLocaleString()} <Flag code={toFlag} className="flag" />
             </p>
         </div>
     );
