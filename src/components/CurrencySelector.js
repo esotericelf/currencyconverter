@@ -4,7 +4,7 @@ import Flag from 'react-world-flags';
 import { fetchExchangeRates } from '../redux/thunks';
 import './CurrencySelector.css';
 
-const CurrencySelector = ({ defaultCurrency = 'HKD', onCurrencyChange }) => {
+const CurrencySelector = ({ defaultCurrency = 'HKD', onCurrencyChange, onAmountChange, onBlur }) => {
     const dispatch = useDispatch();
     const { exchangeRates, loading, error } = useSelector((state) => state);
 
@@ -21,7 +21,11 @@ const CurrencySelector = ({ defaultCurrency = 'HKD', onCurrencyChange }) => {
     }, [defaultCurrency]);
 
     const handleAmountChange = (e) => {
-        setAmount(e.target.value);
+        const newAmount = e.target.value;
+        setAmount(newAmount);
+        if (onAmountChange) {
+            onAmountChange(newAmount);
+        }
     };
 
     const handleCurrencySelect = (code) => {
@@ -43,6 +47,9 @@ const CurrencySelector = ({ defaultCurrency = 'HKD', onCurrencyChange }) => {
         if (amount) {
             setAmount(formatCurrency(amount.replace(/[^0-9.-]+/g, ''), selectedCurrency, exchangeRates));
         }
+        if (onBlur) {
+            onBlur();
+        }
     };
 
     const formatCurrency = (amount, currencyCode, ratesArray) => {
@@ -63,13 +70,14 @@ const CurrencySelector = ({ defaultCurrency = 'HKD', onCurrencyChange }) => {
             {error && <p>Error: {error}</p>}
             <input
                 type="text"
+                inputMode="decimal"
                 value={amount}
                 onChange={handleAmountChange}
                 onBlur={handleBlur}
                 placeholder={`Enter amount in ${selectedCurrency}`}
                 className="currency-input"
             />
-            <div className="currency-display-container" style={{ width: '25%', position: 'relative' }}>
+            <div className="currency-display-container" style={{ position: 'relative' }}>
                 <div onClick={toggleDropdown} className="currency-display">
                     <Flag code={selectedCountryCode} className="flag" />
                     {selectedCurrency}

@@ -1,0 +1,47 @@
+@keyframes flash {
+
+    0%,
+    100% {
+        background-color: #f9f9f9;
+    }
+
+    50% {
+        background-color: #87ceeb;
+    }
+}
+
+.currency-converter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px 0;
+    background-color: #f9f9f9;
+    width: 100%;
+    animation: flash 1s ease-in-out;
+}
+
+.currency-converter p {
+    margin: 0;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+}
+
+.flag {
+    width: 24px;
+    height: 16px;
+    margin: 0 5px;
+    vertical-align: middle;
+}
+
+.currency-symbol {
+    margin-right: 5px;
+}
+
+.amount {
+    font-weight: bold;
+    margin-right: 5px;
+}
