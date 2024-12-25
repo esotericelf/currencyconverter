@@ -3,6 +3,10 @@ export const FETCH_EXCHANGE_RATES_SUCCESS = 'FETCH_EXCHANGE_RATES_SUCCESS';
 export const FETCH_EXCHANGE_RATES_FAILURE = 'FETCH_EXCHANGE_RATES_FAILURE';
 export const SET_SELL_CURRENCY = 'SET_SELL_CURRENCY';
 export const SET_BUY_CURRENCY = 'SET_BUY_CURRENCY';
+export const SET_SELL_AMOUNT = 'SET_SELL_AMOUNT';
+export const SET_BUY_AMOUNT = 'SET_BUY_AMOUNT';
+export const SET_IS_EDITING_SELL = 'SET_IS_EDITING_SELL';
+export const SET_IS_EDITING_BUY = 'SET_IS_EDITING_BUY';
 
 export const fetchExchangeRatesRequest = () => ({
     type: FETCH_EXCHANGE_RATES_REQUEST,
@@ -26,4 +30,24 @@ export const setSellCurrency = (currency) => ({
 export const setBuyCurrency = (currency) => ({
     type: SET_BUY_CURRENCY,
     payload: currency,
+});
+
+export const setSellAmount = (amount) => ({
+    type: SET_SELL_AMOUNT,
+    payload: amount,
+});
+
+export const setBuyAmount = (amount) => ({
+    type: SET_BUY_AMOUNT,
+    payload: amount,
+});
+
+export const setIsEditingSell = (isEditing) => ({
+    type: SET_IS_EDITING_SELL,
+    payload: isEditing,
+});
+
+export const setIsEditingBuy = (isEditing) => ({
+    type: SET_IS_EDITING_BUY,
+    payload: isEditing,
 });

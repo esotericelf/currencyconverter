@@ -91,3 +91,9 @@
     height: 1.5em;
     margin-right: 5px;
 }
+
+.currency-selector {
+    position: relative;
+    overflow: visible;
+    z-index: 1000;
+}

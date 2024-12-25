@@ -4,6 +4,10 @@ import {
     FETCH_EXCHANGE_RATES_FAILURE,
     SET_SELL_CURRENCY,
     SET_BUY_CURRENCY,
+    SET_SELL_AMOUNT,
+    SET_BUY_AMOUNT,
+    SET_IS_EDITING_SELL,
+    SET_IS_EDITING_BUY,
 } from './actions';
 
 const initialState = {
@@ -12,6 +16,10 @@ const initialState = {
     error: null,
     sellCurrency: 'HKD',
     buyCurrency: 'USD',
+    sellAmount: '',
+    buyAmount: '',
+    isEditingSell: false,
+    isEditingBuy: false,
 };
 
 const exchangeRatesReducer = (state = initialState, action) => {
@@ -26,6 +34,14 @@ const exchangeRatesReducer = (state = initialState, action) => {
             return { ...state, sellCurrency: action.payload };
         case SET_BUY_CURRENCY:
             return { ...state, buyCurrency: action.payload };
+        case SET_SELL_AMOUNT:
+            return { ...state, sellAmount: action.payload };
+        case SET_BUY_AMOUNT:
+            return { ...state, buyAmount: action.payload };
+        case SET_IS_EDITING_SELL:
+            return { ...state, isEditingSell: action.payload };
+        case SET_IS_EDITING_BUY:
+            return { ...state, isEditingBuy: action.payload };
         default:
             return state;
     }

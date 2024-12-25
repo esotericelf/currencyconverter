@@ -1,42 +1,51 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import CurrencySelector from './components/CurrencySelector';
 import ExchangeRates from './components/ExchangeRates';
 import CurrencyConverter from './components/CurrencyConverter';
-import { setSellCurrency, setBuyCurrency } from './redux/actions';
+import { setSellCurrency, setBuyCurrency, setSellAmount, setBuyAmount, setIsEditingSell, setIsEditingBuy } from './redux/actions';
 import './App.css';
 
+// Main application component
 function App() {
+  // Hook to dispatch actions to the Redux store
   const dispatch = useDispatch();
-  const { sellCurrency, buyCurrency, exchangeRates } = useSelector((state) => state);
 
-  const [sellAmount, setSellAmount] = useState('');
-  const [buyAmount, setBuyAmount] = useState('');
-  const [isEditingSell, setIsEditingSell] = useState(false);
-  const [isEditingBuy, setIsEditingBuy] = useState(false);
+  // Hook to select state from the Redux store
+  const { sellCurrency, buyCurrency, exchangeRates, sellAmount, buyAmount, isEditingSell, isEditingBuy } = useSelector((state) => state);
 
-  console.log('sellCurrency:', sellCurrency);
-  console.log('buyCurrency:', buyCurrency);
-  console.log('exchangeRates:', exchangeRates);
-  console.log('sellAmount:', sellAmount);
-  console.log('buyAmount:', buyAmount);
-
-  const handleSellAmountChange = (amount) => {
-    setSellAmount(amount);
-    setIsEditingSell(true);
+  const handleAmountChange = (amount, type) => {
+    if (type === 'sell') {
+      dispatch(setSellAmount(amount));
+      dispatch(setIsEditingSell(true));
+    } else {
+      dispatch(setBuyAmount(amount));
+      dispatch(setIsEditingBuy(true));
+    }
   };
 
-  const handleBuyAmountChange = (amount) => {
-    setBuyAmount(amount);
-    setIsEditingBuy(true);
+  const handleFocus = (event) => {
+    const strippedAmount = stripFormatting(event.target.value);
+    event.target.value = strippedAmount;
   };
 
-  const handleSellBlur = () => {
-    setIsEditingSell(false);
+  const handleBlur = (event, type) => {
+    const formattedAmount = formatAmount(event.target.value);
+    event.target.value = formattedAmount;
+    if (type === 'sell') {
+      dispatch(setIsEditingSell(false));
+    } else {
+      dispatch(setIsEditingBuy(false));
+    }
   };
 
-  const handleBuyBlur = () => {
-    setIsEditingBuy(false);
+  const stripFormatting = (amount) => {
+    return amount.replace(/[^0-9.]/g, '');
+  };
+
+  const formatAmount = (amount) => {
+    if (!amount) return '';
+    return parseFloat(amount).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   };
 
   return (
@@ -48,8 +57,9 @@ function App() {
           <CurrencySelector
             defaultCurrency={sellCurrency}
             onCurrencyChange={(currency) => dispatch(setSellCurrency(currency))}
-            onAmountChange={handleSellAmountChange}
-            onBlur={handleSellBlur}
+            onAmountChange={(amount) => handleAmountChange(amount, 'sell')}
+            onFocus={handleFocus}
+            onBlur={(e) => handleBlur(e, 'sell')}
           />
           {!isEditingSell && sellAmount && (
             <CurrencyConverter
@@ -66,8 +76,9 @@ function App() {
           <CurrencySelector
             defaultCurrency={buyCurrency}
             onCurrencyChange={(currency) => dispatch(setBuyCurrency(currency))}
-            onAmountChange={handleBuyAmountChange}
-            onBlur={handleBuyBlur}
+            onAmountChange={(amount) => handleAmountChange(amount, 'buy')}
+            onFocus={handleFocus}
+            onBlur={(e) => handleBlur(e, 'buy')}
           />
           {!isEditingBuy && buyAmount && (
             <CurrencyConverter
