@@ -7,7 +7,7 @@ import './CurrencySelector.css';
 
 const CurrencySelector = ({ defaultCurrency = 'HKD', onCurrencyChange, onAmountChange, onBlur }) => {
     const dispatch = useDispatch();
-    const { exchangeRates = [], loading, error } = useSelector((state) => state);
+    const { exchangeRates = [] } = useSelector((state) => state);
 
     const [amount, setAmount] = useState('');
     const [selectedCurrency, setSelectedCurrency] = useState(defaultCurrency);

@@ -35,9 +35,6 @@ const ExchangeRates = ({ sellCurrency, buyCurrency, exchangeRates }) => {
         return <p>Exchange rate not available</p>;
     }
 
-    const sellFlag = sellRate.countryCode || 'HK';
-    const buyFlag = buyRate.countryCode || 'US';
-
     const handleSwap = () => {
         dispatch(swapCurrencies());
     };
