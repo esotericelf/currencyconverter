@@ -13,20 +13,20 @@ function Menu() {
         dispatch(toggleMenu());
     };
 
-    const handleClickOutside = (event) => {
-        if (menuRef.current && !menuRef.current.contains(event.target)) {
-            if (isOpen) {
-                dispatch(toggleMenu());
-            }
-        }
-    };
-
     useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                if (isOpen) {
+                    dispatch(toggleMenu());
+                }
+            }
+        };
+
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [isOpen]);
+    }, [isOpen, dispatch]);
 
     return (
         <div className="menu-container" ref={menuRef}>

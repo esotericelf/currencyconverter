@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import Flag from 'react-world-flags';
 import CurrencyConversionDisplay from './CurrencyConversionDisplay';
 import { swapCurrencies } from '../redux/actions';
 import './ExchangeRates.css';
