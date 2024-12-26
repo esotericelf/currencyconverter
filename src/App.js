@@ -6,6 +6,7 @@ import CurrencyConverter from './components/CurrencyConverter';
 import { setSellCurrency, setBuyCurrency, setSellAmount, setBuyAmount, setIsEditingSell, setIsEditingBuy } from './redux/actions';
 import './App.css';
 import headerImage from './img/currency_converters.svg';
+import Menu from './components/Menu';
 
 // Main application component
 function App() {
@@ -56,6 +57,7 @@ function App() {
 
   return (
     <div className="App">
+      <Menu />
       <div className="header-image-container">
         <img src={headerImage} alt="Currency Converters" className="header-image" />
       </div>
