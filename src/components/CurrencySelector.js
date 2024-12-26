@@ -94,7 +94,7 @@ const CurrencySelector = ({ defaultCurrency = 'HKD', onCurrencyChange, onAmountC
                 onChange={handleAmountChange}
                 onFocus={handleFocus} // Strip formatting on focus
                 onBlur={handleBlur} // Reapply formatting on blur
-                placeholder={`Enter amount in ${selectedCurrency}`}
+                placeholder={`Amount in ${selectedCurrency}`}
                 className="currency-input"
             />
             <div className="currency-display-container" style={{ position: 'relative' }}>

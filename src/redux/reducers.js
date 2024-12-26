@@ -8,6 +8,7 @@ import {
     SET_BUY_AMOUNT,
     SET_IS_EDITING_SELL,
     SET_IS_EDITING_BUY,
+    SWAP_CURRENCIES,
 } from './actions';
 
 const initialState = {
@@ -42,6 +43,12 @@ const exchangeRatesReducer = (state = initialState, action) => {
             return { ...state, isEditingSell: action.payload };
         case SET_IS_EDITING_BUY:
             return { ...state, isEditingBuy: action.payload };
+        case SWAP_CURRENCIES:
+            return {
+                ...state,
+                sellCurrency: state.buyCurrency,
+                buyCurrency: state.sellCurrency,
+            };
         default:
             return state;
     }

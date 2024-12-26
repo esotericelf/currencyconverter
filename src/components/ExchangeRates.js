@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Flag from 'react-world-flags';
+import CurrencyConversionDisplay from './CurrencyConversionDisplay';
+import { swapCurrencies } from '../redux/actions';
 import './ExchangeRates.css';
 
 const ExchangeRates = ({ sellCurrency, buyCurrency, exchangeRates }) => {
+    const dispatch = useDispatch();
     const [finalRate, setFinalRate] = useState(null);
     const [flash, setFlash] = useState(false);
 
@@ -18,9 +22,8 @@ const ExchangeRates = ({ sellCurrency, buyCurrency, exchangeRates }) => {
             }
         }
 
-        // Trigger flash animation
         setFlash(true);
-        const timer = setTimeout(() => setFlash(false), 1000); // Reset flash after 1 second
+        const timer = setTimeout(() => setFlash(false), 1000);
 
         return () => clearTimeout(timer);
     }, [sellCurrency, buyCurrency, exchangeRates]);
@@ -35,13 +38,17 @@ const ExchangeRates = ({ sellCurrency, buyCurrency, exchangeRates }) => {
     const sellFlag = sellRate.countryCode || 'HK';
     const buyFlag = buyRate.countryCode || 'US';
 
+    const handleSwap = () => {
+        dispatch(swapCurrencies());
+    };
+
     return (
-        <div className={`exchange-rates ${flash ? 'flash' : ''}`}>
+        <div className={`exchange-rates ${flash ? 'flash' : ''}`} onClick={handleSwap} style={{ cursor: 'pointer' }}>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-                <h4 style={{ margin: '0 10px 0 0' }}>Exchange Rate:</h4>
+                <CurrencyConversionDisplay />
                 {finalRate !== null ? (
                     <p style={{ margin: 0, display: 'flex', alignItems: 'center' }}>
-                        <Flag code={sellFlag} className="flag" /> 1 {sellCurrency} = {finalRate.toFixed(4)} {buyCurrency} <Flag code={buyFlag} className="flag" />
+                        1 {sellCurrency} = {finalRate.toFixed(4)} {buyCurrency}
                     </p>
                 ) : (
                     <p style={{ margin: 0 }}>Exchange rate not available</p>
