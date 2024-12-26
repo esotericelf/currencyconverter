@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CurrencySelector from './components/CurrencySelector';
 import ExchangeRates from './components/ExchangeRates';
 import CurrencyConverter from './components/CurrencyConverter';
@@ -7,6 +8,7 @@ import { setSellCurrency, setBuyCurrency, setSellAmount, setBuyAmount, setIsEdit
 import './App.css';
 import headerImage from './img/currency_converters.svg';
 import Menu from './components/Menu';
+import ProfitsCalculator from './Pages/ProfitsCalculator';
 
 // Main application component
 function App() {
@@ -56,64 +58,73 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <Menu />
-      <div className="header-image-container">
-        <img src={headerImage} alt="Currency Converters" className="header-image" />
-      </div>
-      <div className="currency-selectors">
-        <div className="currency-section">
-          <h2>Sell</h2>
-          <CurrencySelector
-            defaultCurrency={sellCurrency}
-            onCurrencyChange={(currency) => dispatch(setSellCurrency(currency))}
-            onAmountChange={(amount) => handleAmountChange(amount, 'sell')}
-            onFocus={handleFocus}
-            onBlur={(e) => handleBlur(e, 'sell')}
-          />
-          {isEditingSell ? (
-            <div className="flashing-dots">...</div>
-          ) : (
-            sellAmount && (
-              <CurrencyConverter
-                amount={sellAmount}
-                type="sell"
-                fromCurrency={sellCurrency}
-                toCurrency={buyCurrency}
-              />
-            )
-          )}
-        </div>
+    <Router>
+      <div className="App">
+        <Menu />
+        <Routes>
+          <Route path="/" element={
+            <>
+              <div className="header-image-container">
+                <img src={headerImage} alt="Currency Converters" className="header-image" />
+              </div>
+              <div className="currency-selectors">
+                <div className="currency-section">
+                  <h2>Sell</h2>
+                  <CurrencySelector
+                    defaultCurrency={sellCurrency}
+                    onCurrencyChange={(currency) => dispatch(setSellCurrency(currency))}
+                    onAmountChange={(amount) => handleAmountChange(amount, 'sell')}
+                    onFocus={handleFocus}
+                    onBlur={(e) => handleBlur(e, 'sell')}
+                  />
+                  {isEditingSell ? (
+                    <div className="flashing-dots">...</div>
+                  ) : (
+                    sellAmount && (
+                      <CurrencyConverter
+                        amount={sellAmount}
+                        type="sell"
+                        fromCurrency={sellCurrency}
+                        toCurrency={buyCurrency}
+                      />
+                    )
+                  )}
+                </div>
 
-        <div className="currency-section">
-          <h2>Buy</h2>
-          <CurrencySelector
-            defaultCurrency={buyCurrency}
-            onCurrencyChange={(currency) => dispatch(setBuyCurrency(currency))}
-            onAmountChange={(amount) => handleAmountChange(amount, 'buy')}
-            onFocus={handleFocus}
-            onBlur={(e) => handleBlur(e, 'buy')}
-          />
-          {isEditingBuy ? (
-            <div className="flashing-dots">...</div>
-          ) : (
-            buyAmount && (
-              <CurrencyConverter
-                amount={buyAmount}
-                type="buy"
-                fromCurrency={buyCurrency}
-                toCurrency={sellCurrency}
+                <div className="currency-section">
+                  <h2>Buy</h2>
+                  <CurrencySelector
+                    defaultCurrency={buyCurrency}
+                    onCurrencyChange={(currency) => dispatch(setBuyCurrency(currency))}
+                    onAmountChange={(amount) => handleAmountChange(amount, 'buy')}
+                    onFocus={handleFocus}
+                    onBlur={(e) => handleBlur(e, 'buy')}
+                  />
+                  {isEditingBuy ? (
+                    <div className="flashing-dots">...</div>
+                  ) : (
+                    buyAmount && (
+                      <CurrencyConverter
+                        amount={buyAmount}
+                        type="buy"
+                        fromCurrency={buyCurrency}
+                        toCurrency={sellCurrency}
+                      />
+                    )
+                  )}
+                </div>
+              </div>
+              <ExchangeRates
+                sellCurrency={sellCurrency}
+                buyCurrency={buyCurrency}
+                exchangeRates={exchangeRates}
               />
-            )
-          )}
-        </div>
+            </>
+          } />
+          <Route path="/profits-calculator" element={<ProfitsCalculator />} />
+        </Routes>
       </div>
-      <ExchangeRates
-        sellCurrency={sellCurrency}
-        buyCurrency={buyCurrency}
-        exchangeRates={exchangeRates}
-      />
-    </div>
+    </Router>
   );
 }
 

@@ -9,6 +9,7 @@ import {
     SET_IS_EDITING_SELL,
     SET_IS_EDITING_BUY,
     SWAP_CURRENCIES,
+    TOGGLE_MENU,
 } from './actions';
 
 const initialState = {
@@ -21,6 +22,7 @@ const initialState = {
     buyAmount: '',
     isEditingSell: false,
     isEditingBuy: false,
+    isMenuOpen: false,
 };
 
 const exchangeRatesReducer = (state = initialState, action) => {
@@ -48,6 +50,11 @@ const exchangeRatesReducer = (state = initialState, action) => {
                 ...state,
                 sellCurrency: state.buyCurrency,
                 buyCurrency: state.sellCurrency,
+            };
+        case TOGGLE_MENU:
+            return {
+                ...state,
+                isMenuOpen: !state.isMenuOpen,
             };
         default:
             return state;

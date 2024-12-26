@@ -8,6 +8,7 @@ export const SET_BUY_AMOUNT = 'SET_BUY_AMOUNT';
 export const SET_IS_EDITING_SELL = 'SET_IS_EDITING_SELL';
 export const SET_IS_EDITING_BUY = 'SET_IS_EDITING_BUY';
 export const SWAP_CURRENCIES = 'SWAP_CURRENCIES';
+export const TOGGLE_MENU = 'TOGGLE_MENU';
 
 export const fetchExchangeRatesRequest = () => ({
     type: FETCH_EXCHANGE_RATES_REQUEST,
@@ -55,4 +56,8 @@ export const setIsEditingBuy = (isEditing) => ({
 
 export const swapCurrencies = () => ({
     type: SWAP_CURRENCIES,
+});
+
+export const toggleMenu = () => ({
+    type: TOGGLE_MENU,
 });
