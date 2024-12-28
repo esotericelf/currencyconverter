@@ -1,0 +1,105 @@
+.rate-slider-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 600px;
+    box-sizing: border-box;
+}
+
+.rate-slider-values {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.rate-slider-container {
+    position: relative;
+    justify-content: center;
+    height: 10px;
+    background-color: #dadae5;
+    border-radius: 5px;
+    padding: 0 20px;
+    width: 60%;
+}
+
+.rate-slider-track {
+    position: absolute;
+    height: 100%;
+    background-color: hwb(206 59% 0%);
+    border-radius: 5px;
+    left: 0;
+    right: 0;
+}
+
+.rate-slider-thumb {
+    position: absolute;
+    top: -5px;
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border: 2px solid hwb(206 59% 0%);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+.rate-slider-values #range1,
+.rate-slider-values #range2 {
+    background-color: #f0f8ff;
+    /* Light blue background */
+    border: 1px solid #3264fe;
+    /* Blue border */
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+    text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow */
+    color: #3264fe;
+    /* Blue text color */
+    font-size: 1.2em;
+    /* Slightly larger font size */
+    position: relative;
+    cursor: pointer;
+}
+
+.rate-slider-values #range1:hover,
+.rate-slider-values #range2:hover {
+    background-color: #e0e7ff;
+    /* Slightly darker on hover */
+    text-shadow: 1px 1px 2px rgba(50, 100, 254, 0.3);
+    /* Less pronounced shadow on hover */
+    transform: scale(1.1);
+    /* Slightly enlarge on hover */
+    color: #ff4500;
+    /* Change color on hover */
+}
+
+.rate-slider-values #range1::after,
+.rate-slider-values #range2::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.rate-slider-values #range1:hover::after,
+.rate-slider-values #range2:hover::after {
+    opacity: 1;
+    visibility: visible;
+}

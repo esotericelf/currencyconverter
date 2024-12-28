@@ -1,16 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchExchangeRates } from '../redux/thunks';
 import CurrencyDropdown from '../components/CurrencyDropdown';
 import ExchangeRates from '../components/ExchangeRates';
 import headerImage from '../img/Profits_Calculator.svg';
+import '../App.css';
+import { setSellCurrency, setBuyCurrency } from '../redux/actions';
+import RateSlider from '../components/RateSlider';
+import useExchangeRate from '../hooks/useExchangeRate';
 
 function ProfitsCalculator() {
     const dispatch = useDispatch();
-    const { exchangeRates = [], loading, error } = useSelector((state) => state);
+    const { exchangeRates, loading, error, sellCurrency, buyCurrency } = useSelector((state) => state);
 
-    const [selectedCurrency, setSelectedCurrency] = useState('HKD');
-    const [selectedCounterCurrency, setSelectedCounterCurrency] = useState('USD');
+    // Local state for managing dropdown open/close
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isCounterDropdownOpen, setIsCounterDropdownOpen] = useState(false);
 
@@ -18,23 +21,18 @@ function ProfitsCalculator() {
         dispatch(fetchExchangeRates());
     }, [dispatch]);
 
-    const handleCurrencyChange = (currency) => {
-        setSelectedCurrency(currency);
-        setIsDropdownOpen(false);
+    const handleCurrencySelect = (currency, type) => {
+        if (type === 'sell') {
+            dispatch(setSellCurrency(currency));
+            setIsDropdownOpen(false);
+        } else {
+            dispatch(setBuyCurrency(currency));
+            setIsCounterDropdownOpen(false);
+        }
+        console.log(`Selected ${type} currency: ${currency}`); // Debugging log
     };
 
-    const handleCounterCurrencyChange = (currency) => {
-        setSelectedCounterCurrency(currency);
-        setIsCounterDropdownOpen(false);
-    };
-
-    const toggleDropdown = () => {
-        setIsDropdownOpen((prevState) => !prevState);
-    };
-
-    const toggleCounterDropdown = () => {
-        setIsCounterDropdownOpen((prevState) => !prevState);
-    };
+    const rate = useExchangeRate(exchangeRates, sellCurrency, buyCurrency);
 
     return (
         <div>
@@ -42,32 +40,43 @@ function ProfitsCalculator() {
                 <img src={headerImage} alt="Currency Converters" className="header-image" />
             </div>
             <br />
-            <h1>To be launched soon</h1>
 
             {loading && <p>Loading exchange rates...</p>}
             {error && <p>Error loading exchange rates: {error.message}</p>}
 
-            <h2>Base Currency: {selectedCurrency}</h2>
-            <CurrencyDropdown
-                exchangeRates={exchangeRates}
-                selectedCurrency={selectedCurrency}
-                onCurrencySelect={handleCurrencyChange}
-                isDropdownOpen={isDropdownOpen}
-                toggleDropdown={toggleDropdown}
-            />
+            <div className="currency-selectors">
+                <div className="currency-section">
+                    <h3>Base Currency: {sellCurrency}</h3>
+                    <CurrencyDropdown
+                        exchangeRates={exchangeRates}
+                        selectedCurrency={sellCurrency}
+                        onCurrencySelect={(currency) => handleCurrencySelect(currency, 'sell')}
+                        isDropdownOpen={isDropdownOpen}
+                        toggleDropdown={() => setIsDropdownOpen(!isDropdownOpen)}
+                    />
+                </div>
 
-            <h2>Counter Currency: {selectedCounterCurrency}</h2>
-            <CurrencyDropdown
-                exchangeRates={exchangeRates}
-                selectedCurrency={selectedCounterCurrency}
-                onCurrencySelect={handleCounterCurrencyChange}
-                isDropdownOpen={isCounterDropdownOpen}
-                toggleDropdown={toggleCounterDropdown}
+                <div className="currency-section">
+                    <h3>Counter Currency: {buyCurrency}</h3>
+                    <CurrencyDropdown
+                        exchangeRates={exchangeRates}
+                        selectedCurrency={buyCurrency}
+                        onCurrencySelect={(currency) => handleCurrencySelect(currency, 'buy')}
+                        isDropdownOpen={isCounterDropdownOpen}
+                        toggleDropdown={() => setIsCounterDropdownOpen(!isCounterDropdownOpen)}
+                    />
+                </div>
+            </div>
+
+            <RateSlider
+                rate={rate}
+                buyCurrency={buyCurrency}
+                sellCurrency={sellCurrency}
             />
-            <br></br>
+            <br />
             <ExchangeRates
-                buyCurrency={selectedCurrency}
-                sellCurrency={selectedCounterCurrency}
+                sellCurrency={sellCurrency}
+                buyCurrency={buyCurrency}
                 exchangeRates={exchangeRates}
             />
         </div>
