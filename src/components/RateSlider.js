@@ -9,12 +9,13 @@ const RateSlider = ({ rate, buyCurrency, sellCurrency }) => {
     const upperBoundary = isJPYCounter ? rate + 3 : rate + 0.03;
 
     const [value, setValue] = useState([lowerBoundary, upperBoundary]);
+    const [amount, setAmount] = useState(0); // State for the amount input
     const sliderRef = useRef(null);
     const handleWidth = 20; // Assuming the handle icon is 20px wide
 
     useEffect(() => {
         setValue([lowerBoundary, upperBoundary]);
-    }, [rate, buyCurrency, sellCurrency]);
+    }, [rate, buyCurrency, sellCurrency, lowerBoundary, upperBoundary]);
 
     const handleMouseDown = (e, thumbIndex) => {
         e.preventDefault();
@@ -51,6 +52,10 @@ const RateSlider = ({ rate, buyCurrency, sellCurrency }) => {
         document.addEventListener('mouseup', onMouseUp);
     };
 
+    const handleAmountChange = (e) => {
+        setAmount(e.target.value);
+    };
+
     return (
         <div className="rate-slider-wrapper">
             <div className="rate-slider-values">
@@ -59,7 +64,13 @@ const RateSlider = ({ rate, buyCurrency, sellCurrency }) => {
                 <span id="range2">{value[1]?.toFixed(4)}</span>
             </div>
             <div className="rate-slider-container" ref={sliderRef}>
-                <div className="rate-slider-track"></div>
+                <div
+                    className="rate-slider-track"
+                    style={{
+                        left: `${((value[0] - lowerBoundary) / (upperBoundary - lowerBoundary)) * 100}%`,
+                        width: `${((value[1] - value[0]) / (upperBoundary - lowerBoundary)) * 100}%`,
+                    }}
+                ></div>
                 <div
                     className="rate-slider-thumb"
                     style={{ left: `${((value[0] - lowerBoundary) / (upperBoundary - lowerBoundary)) * 100}%` }}
@@ -71,6 +82,7 @@ const RateSlider = ({ rate, buyCurrency, sellCurrency }) => {
                     onMouseDown={(e) => handleMouseDown(e, 1)}
                 ></div>
             </div>
+            <AmountInput value={amount} onChange={handleAmountChange} />
         </div>
     );
 };
