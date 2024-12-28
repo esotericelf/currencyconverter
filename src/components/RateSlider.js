@@ -82,7 +82,6 @@ const RateSlider = ({ rate, buyCurrency, sellCurrency }) => {
                     onMouseDown={(e) => handleMouseDown(e, 1)}
                 ></div>
             </div>
-            <AmountInput value={amount} onChange={handleAmountChange} />
         </div>
     );
 };
