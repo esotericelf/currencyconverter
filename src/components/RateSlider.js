@@ -9,7 +9,6 @@ const RateSlider = ({ rate, buyCurrency, sellCurrency }) => {
     const upperBoundary = isJPYCounter ? rate + 3 : rate + 0.03;
 
     const [value, setValue] = useState([lowerBoundary, upperBoundary]);
-    const [amount, setAmount] = useState(0); // State for the amount input
     const sliderRef = useRef(null);
     const handleWidth = 20; // Assuming the handle icon is 20px wide
 
@@ -50,10 +49,6 @@ const RateSlider = ({ rate, buyCurrency, sellCurrency }) => {
 
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onMouseUp);
-    };
-
-    const handleAmountChange = (e) => {
-        setAmount(e.target.value);
     };
 
     return (
