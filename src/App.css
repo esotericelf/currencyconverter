@@ -191,3 +191,19 @@ h2 {
         opacity: 0;
     }
 }
+
+.amount-and-rates-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+.amount-input {
+    flex: 1;
+}
+
+.exchange-rates {
+    flex: 1;
+}

@@ -65,3 +65,4 @@ export const swapCurrencies = () => ({
 export const toggleMenu = () => ({
     type: ActionTypes.TOGGLE_MENU,
 });
+

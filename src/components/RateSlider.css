@@ -25,6 +25,7 @@
     border-radius: 5px;
     padding: 0 20px;
     width: 60%;
+    margin-top: 20px;
 }
 
 .rate-slider-track {
@@ -38,14 +39,46 @@
 
 .rate-slider-thumb {
     position: absolute;
-    top: -5px;
-    width: 20px;
-    height: 20px;
-    background-color: #fff;
-    border: 2px solid hwb(206 59% 0%);
-    border-radius: 50%;
+    top: -10px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid skyblue;
     cursor: pointer;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+.rate-slider-values input {
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    appearance: none;
+    background-color: #f0f8ff;
+    border: 1px solid #3264fe;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+    text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.1);
+    color: #3264fe;
+    font-size: 1.2em;
+    width: 80px;
+    text-align: center;
+    margin: 0 5px;
+}
+
+.rate-slider-values input[type=number]::-webkit-inner-spin-button,
+.rate-slider-values input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.rate-slider-values input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.rate-slider-values input:focus {
+    outline: none;
+    background-color: #e0e7ff;
 }
 
 .rate-slider-values #range1,
@@ -76,7 +109,7 @@
     /* Less pronounced shadow on hover */
     transform: scale(1.1);
     /* Slightly enlarge on hover */
-    color: #ff4500;
+    color: #999;
     /* Change color on hover */
 }
 
@@ -102,4 +135,29 @@
 .rate-slider-values #range2:hover::after {
     opacity: 1;
     visibility: visible;
+}
+
+#range1:focus,
+#range2:focus {
+    outline: none;
+}
+
+#range1::after,
+#range2::after {
+    display: none;
+    /* Ensure no pseudo-elements are visible */
+}
+
+.rate-input {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 10px;
+    /* Space between inputs */
+}
+
+.rate-input label {
+    font-size: 0.9em;
+    color: #555;
+    margin-bottom: 5px;
 }
