@@ -13,7 +13,11 @@ import ProfitStatement from '../components/ProfitStatement';
 
 function ProfitsCalculator() {
     const dispatch = useDispatch();
-    const { exchangeRates, loading, error, sellCurrency, buyCurrency } = useSelector((state) => state);
+    const exchangeRates = useSelector((state) => state.exchangeRates);
+    const loading = useSelector((state) => state.loading);
+    const error = useSelector((state) => state.error);
+    const sellCurrency = useSelector((state) => state.sellCurrency);
+    const buyCurrency = useSelector((state) => state.buyCurrency);
 
     // Local state for managing dropdown open/close
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
