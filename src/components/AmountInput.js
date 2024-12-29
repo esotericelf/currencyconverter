@@ -39,7 +39,7 @@ const AmountInput = ({ selectedCurrency, onAmountChange, onBlur }) => {
 
     return (
         <input
-            type="text"
+            type="TEL"
             value={amount}
             onChange={handleAmountChange}
             onFocus={handleFocus}

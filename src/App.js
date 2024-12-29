@@ -12,11 +12,16 @@ import ProfitsCalculator from './Pages/ProfitsCalculator';
 
 // Main application component
 function App() {
-  // Hook to dispatch actions to the Redux store
   const dispatch = useDispatch();
 
-  // Hook to select state from the Redux store
-  const { sellCurrency, buyCurrency, exchangeRates, sellAmount, buyAmount, isEditingSell, isEditingBuy } = useSelector((state) => state);
+  // Select only the necessary state properties
+  const sellCurrency = useSelector((state) => state.sellCurrency);
+  const buyCurrency = useSelector((state) => state.buyCurrency);
+  const exchangeRates = useSelector((state) => state.exchangeRates);
+  const sellAmount = useSelector((state) => state.sellAmount);
+  const buyAmount = useSelector((state) => state.buyAmount);
+  const isEditingSell = useSelector((state) => state.isEditingSell);
+  const isEditingBuy = useSelector((state) => state.isEditingBuy);
 
   // Handler for changing the amount
   const handleAmountChange = (amount, type) => {

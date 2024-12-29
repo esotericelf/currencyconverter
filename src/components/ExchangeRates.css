@@ -14,15 +14,17 @@
 
 .exchange-rates {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 10px 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin: 10px 0;
-    background-color: #f9f9f9;
+    padding: 10px;
+    box-sizing: border-box;
     width: 100%;
-    gap: 10px;
+    max-width: 100%;
+    overflow-x: auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .flash {
@@ -37,11 +39,10 @@
 }
 
 .exchange-rates p {
+    font-size: 1em;
+    color: #333;
     margin: 0;
-    font-size: 1.2em;
-    display: flex;
-    align-items: center;
-    line-height: normal;
+    text-align: center;
 }
 
 .flag {
@@ -58,4 +59,15 @@
 .amount {
     font-weight: bold;
     margin-right: 5px;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 600px) {
+    .exchange-rates {
+        padding: 5px;
+    }
+
+    .exchange-rates p {
+        font-size: 0.9em;
+    }
 }

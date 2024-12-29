@@ -154,11 +154,23 @@ h2 {
     .currency-selectors {
         flex-direction: column;
         align-items: center;
+        width: 100%;
     }
 
     .currency-section {
         width: 100%;
         margin: 10px 0;
+    }
+
+    .amount-and-rates-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .amount-input,
+    .exchange-rates {
+        width: 100%;
     }
 }
 

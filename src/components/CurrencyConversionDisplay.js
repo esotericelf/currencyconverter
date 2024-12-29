@@ -10,7 +10,10 @@ const currencyToCountryCode = (currencyCode, exchangeRates) => {
 };
 
 const CurrencyConversionDisplay = () => {
-    const { sellCurrency, buyCurrency, exchangeRates } = useSelector((state) => state);
+    // Select only the necessary state properties
+    const sellCurrency = useSelector((state) => state.sellCurrency);
+    const buyCurrency = useSelector((state) => state.buyCurrency);
+    const exchangeRates = useSelector((state) => state.exchangeRates);
 
     const sellCountryCode = currencyToCountryCode(sellCurrency, exchangeRates);
     const buyCountryCode = currencyToCountryCode(buyCurrency, exchangeRates);

@@ -27,13 +27,6 @@ const ExchangeRates = ({ sellCurrency, buyCurrency, exchangeRates }) => {
         return () => clearTimeout(timer);
     }, [sellCurrency, buyCurrency, exchangeRates]);
 
-    const sellRate = exchangeRates.find(rate => rate.code === sellCurrency);
-    const buyRate = exchangeRates.find(rate => rate.code === buyCurrency);
-
-    if (!sellRate || !buyRate) {
-        return <p>Exchange rate not available</p>;
-    }
-
     const handleSwap = () => {
         dispatch(swapCurrencies());
     };
