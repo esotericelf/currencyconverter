@@ -219,3 +219,8 @@ h2 {
 .exchange-rates {
     flex: 1;
 }
+
+.sponsor-badge {
+    text-align: center;
+    margin-top: 20px;
+}

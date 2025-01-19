@@ -128,6 +128,11 @@ function App() {
           } />
           <Route path="/profits-calculator" element={<ProfitsCalculator />} />
         </Routes>
+        <div className="sponsor-badge">
+          <a href="https://www.digitalocean.com/?refcode=61d82ae7e59a&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge">
+            <img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%202.svg" alt="DigitalOcean Referral Badge" />
+          </a>
+        </div>
       </div>
     </Router>
   );
